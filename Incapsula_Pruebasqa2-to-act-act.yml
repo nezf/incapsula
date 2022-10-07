@@ -10,8 +10,8 @@
     string_lgvl: "200.14.130"
     permiso_conmutar: true
 
-  connection: local
-  gather_facts: false
+  #connection: local
+  gather_facts: true
 
   tasks:
     - name: Obtener Info sitio
@@ -31,8 +31,8 @@
       file:
         name: reports
         state: directory
-      delegate_to: localhost
-      run_once: True
+      #delegate_to: localhost
+      #run_once: True
 
     - name: RENDER FACTS AS A REPORT
       template:
