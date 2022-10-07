@@ -26,5 +26,5 @@
     port: 587
     to: zuniga.flores.nicolas@gmail.com
     subject: Poner pruebas3.qa.bancochile.cl a activo-activo
-    body: 'System {{ ansible_hostname }} : Poner pruebas3.qa.bancochile.cl a activo-activo'
+    body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
     attach: reporte.txt
