@@ -1,0 +1,4 @@
+- name: ENSURE REPORTS FOLDER
+  file:
+    name: reports
+    state: directory
