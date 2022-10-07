@@ -1,0 +1,12 @@
+- name: Obtener Info sitio
+  uri:
+    url: https://cloud.redhat.com
+    method: GET
+    timeout: 30
+    status_code: 200
+  register: info_pre
+
+- name: imprime
+  debug:
+    msg:
+      - "{{ info_pre }}"
