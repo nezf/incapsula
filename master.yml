@@ -1,4 +1,0 @@
----
-# master playbook
-
-- include: pruebasqa.yml
