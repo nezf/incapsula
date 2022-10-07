@@ -14,10 +14,6 @@
   gather_facts: false
 
   tasks:
-
-################################################################################################################ OBTENER ESTADO INICIAL
-
-
     - name: Obtener Info sitio
       uri: 
         url: https://my.imperva.com/api/prov/v3/sites/{{ id_sitio }}/data-centers-configuration
@@ -36,110 +32,6 @@
         msg: 
           - "{{ info_pre }}"
 
-
-    - name: Obtener ID de Server (1/2)
-      set_fact:
-        id_cdlv: "{{ info_pre.json.data[0].dataCenters[0].servers[0] }}"
-        id_lgvl: "{{ info_pre.json.data[0].dataCenters[0].servers[1] }}"
-      when: string_cdlv in info_pre.json.data[0].dataCenters[0].servers[0].address
-
-    - name: Obtener ID de Server (2/2)
-      set_fact:
-        id_cdlv: "{{ info_pre.json.data[0].dataCenters[0].servers[1] }}"
-        id_lgvl: "{{ info_pre.json.data[0].dataCenters[0].servers[0] }}"
-      when: string_cdlv in info_pre.json.data[0].dataCenters[0].servers[1].address
-
-
-    - name: Obtener DC ID
-      set_fact:
-        id_dc: "{{ info_pre.json.data[0].dataCenters[0].id }}"
-
-    - name: imprime
-      debug:
-        msg: 
-          - "ID CDLV= {{ id_cdlv.id }} // IP={{ id_cdlv.address }} // Estado={{ id_cdlv.isEnabled }} // Weight={{ id_cdlv.weight }}"
-          - "ID LGVL= {{ id_lgvl.id }} // IP={{ id_lgvl.address }} // Estado={{ id_lgvl.isEnabled }} // Weight={{ id_lgvl.weight }}"
-          - "ID DC= {{ id_dc }}"
-
-
-################################################################################################################### validacion de no repeticion
-
-    - name: vaidacion de no repeticion
-      set_fact:
-        permiso_conmutar: false
-      when: id_cdlv.isEnabled == "True" and id_lgvl.isEnabled == "True" and id_lgvl.weight|int == 50 and id_cdlv.weight|int == 50
-
-
-################################################################################################################### ejecucion
-
-    - name: Conmutar a LGVL
-      uri: 
-        url: https://my.imperva.com/api/prov/v2/sites/{{ id_sitio }}/settings/origin/datacenters/{{ id_dc }}/servers
-        headers:
-          x-API-Id: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-          x-API-Key: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
-          accept: application/json
-        body_format: json
-        body:
-          servers:
-            - serverId: "{{ id_cdlv.id }}"
-              serverAddress: "{{ id_cdlv.address }}"
-              isStandby: "false"
-              isEnabled: "True"
-              weight: "50"
-
-            - serverId: "{{ id_lgvl.id }}"
-              serverAddress: "{{ id_lgvl.address }}"
-              isStandby: "false"
-              isEnabled: "True"
-              weight: "50"
-        method: POST
-        timeout: 30
-        status_code: 200
-      when: permiso_conmutar == true
-
-
-################################################################################################################ OBTENER ESTADO final
-
-    - name: Obtener Info sitio
-      uri: 
-        url: https://my.imperva.com/api/prov/v3/sites/{{ id_sitio }}/data-centers-configuration
-        headers:
-          x-API-Id: '{{ lookup("env", "ANSIBLE_NET_USERNAME") }}'
-          x-API-Key: '{{ lookup("env", "ANSIBLE_NET_PASSWORD") }}'
-          accept: application/json
-        method: GET
-        timeout: 30
-        status_code: 200
-      register: info_post
-
-
-
-    - name: Obtener ID de Server (1/2)
-      set_fact:
-        id_cdlv_post: "{{ info_post.json.data[0].dataCenters[0].servers[0] }}"
-        id_lgvl_post: "{{ info_post.json.data[0].dataCenters[0].servers[1] }}"
-      when: string_cdlv in info_post.json.data[0].dataCenters[0].servers[0].address
-
-    - name: Obtener ID de Server (2/2)
-      set_fact:
-        id_cdlv_post: "{{ info_post.json.data[0].dataCenters[0].servers[1] }}"
-        id_lgvl_post: "{{ info_post.json.data[0].dataCenters[0].servers[0] }}"
-      when: string_cdlv in info_post.json.data[0].dataCenters[0].servers[1].address
-
-
-
-    - name: imprime
-      debug:
-        msg: 
-          - "ID CDLV= {{ id_cdlv_post.id }} // IP={{ id_cdlv_post.address }} // Estado={{ id_cdlv_post.isEnabled }} // Weight={{ id_cdlv_post.weight }}"
-          - "ID LGVL= {{ id_lgvl_post.id }} // IP={{ id_lgvl_post.address }} // Estado={{ id_lgvl_post.isEnabled }} // Weight={{ id_lgvl_post.weight }}"
-          - "ID DC= {{ id_dc }}"
-      when: permiso_conmutar == true
-
-################################################################################################################ envio de correo
-
-
     - name: ENSURE REPORTS FOLDER
       file:
         name: reports
@@ -147,20 +39,19 @@
       delegate_to: localhost
       run_once: True
 
-
     - name: RENDER FACTS AS A REPORT
       template:
         src:  Pruebasqa2-to-act-act.j2
         dest: reports/reporte.txt
 
-    - name: mail
-      community.general.mail:
-        host: bchcas006
-        port: 25
-        from: alertasansible@bancochile.cl
-        #to: Jorge Luis Roa Marcano <jroam@bancochile.cl>, canalesinternet@bancochile.cl, Alejandro Daniel Munoz Munoz <admunoz@bancochile.cl>, incapsula_bch@cci-entel.cl, ingenieriasreapps@bancochile.cl, Marco Antonio Serey DelCanto <msereyd@bancochile.cl>
-        to: Jorge Luis Roa Marcano <jroam@bancochile.cl>
-        subject: Poner pruebas3.qa.bancochile.cl a activo-activo
-        body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
-        attach: reports/reporte.txt
-      run_once: True
+    #- name: manda correo
+    #  community.general.mail:
+    #    host: bchcas006
+    #    port: 25
+    #    from: alertasansible@bancochile.cl
+    #    #to: Jorge Luis Roa Marcano <jroam@bancochile.cl>, canalesinternet@bancochile.cl, Alejandro Daniel Munoz Munoz <admunoz@bancochile.cl>, incapsula_bch@cci-entel.cl, ingenieriasreapps@bancochile.cl, Marco Antonio Serey DelCanto <msereyd@bancochile.cl>
+    #    to: Jorge Luis Roa Marcano <jroam@bancochile.cl>
+    #    subject: Poner pruebas3.qa.bancochile.cl a activo-activo
+    #    body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
+    #    attach: reports/reporte.txt
+    #  run_once: True
