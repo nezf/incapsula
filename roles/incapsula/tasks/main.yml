@@ -11,12 +11,12 @@
     msg:
       - "{{ info_pre }}"
 
-- name: ENSURE REPORTS FOLDER
-  file:
-    name: reports
-    state: directory
+#- name: ENSURE REPORTS FOLDER
+#  file:
+#    name: reports
+#    state: directory
 
 - name: RENDER FACTS AS A REPORT
   template:
     src: Incapsula_templates_Pruebasqa2-to-act-act.j2
-    dest: reports/reporte.txt    
+    dest: reporte.txt    
