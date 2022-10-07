@@ -21,8 +21,7 @@
     src: Incapsula_templates_Pruebasqa2-to-act-act.j2
     dest: reporte.txt    
 
-- name: mandacorreo
-  community.general.mail:
+- community.general.mail:
     host: smtp.gmail.com
     port: 587
     to: zuniga.flores.nicolas@gmail.com
