@@ -1,4 +1,7 @@
 - name:  Pruebas Incapsula
+  hosts: all
+  tasks:
+    - debug: msg=hello
     - include: get_info_sitio.yml
     - include: ensure_reports_folder.yml
     - include: render_facts_to_report.yml
