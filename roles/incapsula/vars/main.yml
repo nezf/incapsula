@@ -7,5 +7,5 @@ string_cdlv: "200.14.133"
 string_lgvl: "200.14.130"
 permiso_conmutar: true
 id_cdlv: 15
-id_cdlv: 16
+id_lgvl: 16
 id_dc: 1
