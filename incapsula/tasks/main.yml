@@ -1,3 +1,4 @@
+---
 - name:  Pruebas Incapsula
   hosts: all
   tasks:
