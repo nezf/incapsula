@@ -1,0 +1,8 @@
+---
+- name:  Incapsula pruebasqa
+  hosts: all
+  connection: local
+  gather_facts: false
+  tasks:
+  roles:
+    - { role: incapsula }
