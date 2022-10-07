@@ -1,6 +1,5 @@
 ---
 - name:  Pruebas Incapsula
-  hosts: all
   tasks:
     - debug: msg=hello
     - include: get_info_sitio.yml
