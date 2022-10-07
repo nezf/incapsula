@@ -1,8 +1,8 @@
 - name:  Pruebas Incapsula
   tasks:
-    - role: get_info_sitio
-    - role: ensure_reports_folder
-    - role: render_facts_to_report
+    - include: get_info_sitio.yml
+    - include: ensure_reports_folder.yml
+    - include: render_facts_to_report.yml
 
     #- name: manda correo
     #  community.general.mail:
