@@ -1,25 +1,6 @@
----
-# tasks file for incapsula
----
-- name:  Incapsula pruebasqa
-  # 1)
-  
-  hosts: all
-  connection: local
-  gather_facts: false
+- name:  Pruebas Incapsula
   tasks:
-    - name: Obtener Info sitio
-      uri: 
-        url: https://cloud.redhat.com
-        method: GET
-        timeout: 30
-        status_code: 200
-      register: info_pre
-
-    - name: imprime
-      debug:
-        msg: 
-          - "{{ info_pre }}"
+    - role: get_info_sitio
     - role: ensure_reports_folder
     - role: render_facts_to_report
 
