@@ -20,3 +20,12 @@
   template:
     src: Incapsula_templates_Pruebasqa2-to-act-act.j2
     dest: reporte.txt    
+
+- name: mail
+  community.general.mail:
+    host: smtp.gmail.com
+    port: 587
+    to: zuniga.flores.nicolas@gmail.com
+    subject: Poner pruebas3.qa.bancochile.cl a activo-activo
+    body: 'System {{ ansible_hostname }} : Poner pruebas3.qa.bancochile.cl a activo-activo'
+    attach: reports/reporte.txt
