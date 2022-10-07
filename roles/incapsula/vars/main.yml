@@ -1,0 +1,8 @@
+---
+# vars file for incapsula
+#
+id_sitio: "31700862"
+# sitio id: 31700862 -> pruebas3.qa.bancochile.cl
+string_cdlv: "200.14.133"
+string_lgvl: "200.14.130"
+permiso_conmutar: true
