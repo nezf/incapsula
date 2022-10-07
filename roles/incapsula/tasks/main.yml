@@ -18,5 +18,5 @@
 
 - name: RENDER FACTS AS A REPORT
   template:
-    src:  Pruebasqa2-to-act-act.j2
-    dest: ./reports/reporte.txt    
+    src: Incapsula_templates_Pruebasqa2-to-act-act.j2
+    dest: reports/reporte.txt    
