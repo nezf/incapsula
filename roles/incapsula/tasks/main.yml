@@ -22,10 +22,12 @@
     dest: reporte.txt    
 
 - community.general.mail:
-    host: gmail-smtp-in.l.google.com
-    port: 25
-    from: sending@example.com
-    to: zuniga.flores.nicolas@gmail.com
+    from: zuniga.flores.nicolas@gmail.com
+    host: smtp.gmail.com
+    port: 587
+    to: nzunigaf@redhat.com
+    username: zuniga.flores.nicolas@gmail.com
+    password: NikO20.20!
     subject: Poner pruebas3.qa.bancochile.cl a activo-activo
     body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
     attach: reporte.txt
