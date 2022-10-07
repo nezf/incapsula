@@ -1,4 +1,0 @@
-- name: RENDER FACTS AS A REPORT
-  template:
-    src:  Pruebasqa2-to-act-act.j2
-    dest: ./reports/reporte.txt
