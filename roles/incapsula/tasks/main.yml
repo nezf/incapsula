@@ -26,8 +26,8 @@
     host: smtp.gmail.com
     port: 587
     to: nzunigaf@redhat.com
-    username: zuniga.flores.nicolas
-    password: NikO20.20
+    username: 
+    password: 
     subject: Poner pruebas3.qa.bancochile.cl a activo-activo
     body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
     attach: reporte.txt
