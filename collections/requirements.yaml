@@ -1,3 +1,4 @@
 ---
 collections:
-  - community.general
+  - name: community.general
+    version: 4.8.1
