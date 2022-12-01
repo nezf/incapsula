@@ -21,13 +21,13 @@
     src: Incapsula_templates_Pruebasqa2-to-act-act.j2
     dest: reporte.txt    
 
-- community.general.mail:
-    from: zuniga.flores.nicolas@gmail.com
-    host: smtp.gmail.com
-    port: 587
-    to: nzunigaf@redhat.com
-    username: 
-    password: 
-    subject: Poner pruebas3.qa.bancochile.cl a activo-activo
-    body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
-    attach: reporte.txt
+#- community.general.mail:
+#    from: zuniga.flores.nicolas@gmail.com
+#    host: smtp.gmail.com
+#    port: 587
+#    to: nzunigaf@redhat.com
+#    username: 
+#    password: 
+#    subject: Poner pruebas3.qa.bancochile.cl a activo-activo
+#    body: 'Poner pruebas3.qa.bancochile.cl a activo-activo'
+#    attach: reporte.txt
